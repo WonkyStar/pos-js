@@ -42,21 +42,24 @@ POSTagger.prototype.tag = function(words) {
       taggedSentence[i][1] = words[i] + "^";
     // We need to catch scenarios where we pass things on the prototype
     // that aren't in the lexicon: "constructor" breaks this otherwise
-    if (!ss || (Object.prototype.toString.call(ss) !== '[object Array]'))
+    if (!ss || (Object.prototype.toString.call(ss) !== '[object Array]')){
       taggedSentence[i][1] = "NN";
-    else
+    }else{
       var indexCC = -1
       if(!Array.isArray(ss))
         taggedSentence[i][1] = ss
-      else
-        for (var j = 0, sizeSs = words.length; j < sizeSs; j++) {
+      else{
+        for (var j = 0, sizeSs = ss.length; j < sizeSs; j++) {
           if(ss[j]  === "CC")
             indexCC = j;
         }
         if(indexCC !== -1)
           taggedSentence[i][1] = ss[indexCC]
-        else
+        else{
           taggedSentence[i][1] = ss[0]
+        }
+      }
+    }
   }
 
   // Apply transformation rules
