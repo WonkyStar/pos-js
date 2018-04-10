@@ -45,7 +45,15 @@ POSTagger.prototype.tag = function(words) {
     if (!ss || (Object.prototype.toString.call(ss) !== '[object Array]'))
       taggedSentence[i][1] = "NN";
     else
-      taggedSentence[i][1] = ss;
+      var indexCC = -1
+      for (var j = 0, sizeSs = words.length; j < sizeSs; j++) {
+        if(ss[j]  === "CC")
+          indexCC = j;
+      }
+      if(indexCC !== -1)
+        taggedSentence[i][1] = ss[indexCC]
+      else
+        taggedSentence[i][1] = ss[0]
   }
 
   // Apply transformation rules
